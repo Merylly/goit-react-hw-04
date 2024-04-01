@@ -8,6 +8,7 @@ import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 import css from "./App.module.css";
 
@@ -20,6 +21,8 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [swnLoader, setSwnLoader] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     const onSearchPhotos = async () => {
@@ -58,13 +61,25 @@ function App() {
     setPage(page + 1);
   };
 
+  const openModal = (images) => {
+    setModalImage(images);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className={css.container}>
       <SearchBar onSubmit={onHandleSearch} />
       {swnLoader && <Loader />}
       {isError && <ErrorMessage />}
-      {images && <ImageGallery images={images} />}
+      {images && <ImageGallery images={images} onClick={openModal} />}
       {totalPages > page && <LoadMoreBtn onClick={handleClick} />}
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        {modalImage && <ImageModal images={modalImage} />}
+      </Modal>
       <Toaster />
     </div>
   );

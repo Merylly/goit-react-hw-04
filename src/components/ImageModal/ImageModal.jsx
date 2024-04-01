@@ -1,9 +1,9 @@
-
-
-const ImageModal = () => {
+const ImageModal = ({ images }) => {
   return (
-    <div>ImageModal</div>
-  )
-}
+    <div>
+      <img src={images.urls.regular} alt={images.alt_description} />
+    </div>
+  );
+};
 
-export default ImageModal
+export default ImageModal;
