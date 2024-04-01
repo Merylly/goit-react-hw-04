@@ -1,11 +1,11 @@
+import css from './ImageCard.module.css';
 
-
-const ImageCard = () => {
+const ImageCard = ({ image }) => {
   return (
-    <div>
-      <img src="" alt="" />
+    <div className={css.imageWrapper}>
+      <img className={css.image} src={image.urls.small} alt={image.alt_description} />
     </div>
   );
-}
+};
 
-export default ImageCard
+export default ImageCard;
