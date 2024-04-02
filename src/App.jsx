@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchGalleryImages } from "./servises/api";
 import toast, { Toaster } from "react-hot-toast";
-import Modal from "react-modal";
 
 import SearchBar from "./components/SearchBar/SearchBar";
 import Loader from "./components/Loader/Loader";
@@ -11,8 +10,6 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 
 import css from "./App.module.css";
-
-Modal.setAppElement("#root");
 
 function App() {
   const [images, setImages] = useState(null);
@@ -32,7 +29,6 @@ function App() {
         setSwnLoader(true);
 
         const data = await fetchGalleryImages(query, page);
-        console.log(data);
 
         if (page === 1) {
           setImages(data.results);
@@ -76,15 +72,12 @@ function App() {
       {swnLoader && <Loader />}
       {isError && <ErrorMessage />}
       {images && <ImageGallery images={images} openModal={openModal} />}
-      {totalPages > page && <LoadMoreBtn onClick={onHandleClick} />}
-      <Modal
-        className={css.modal}
-        overlayClassName={css.overlay}
+      {totalPages > page && <LoadMoreBtn onHandleClick={onHandleClick} />}
+      <ImageModal
+        images={modalImage}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-      >
-        {modalImage && <ImageModal images={modalImage} />}
-      </Modal>
+      />
       <Toaster />
     </div>
   );
