@@ -2,7 +2,7 @@ import css from "./ImageModal.module.css";
 
 const ImageModal = ({ images }) => {
   return (
-    <div>
+    <div className={css.modalWrapper}>
       <img
         className={css.modalImage}
         src={images.urls.regular}
