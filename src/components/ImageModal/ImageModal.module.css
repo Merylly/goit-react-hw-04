@@ -1,0 +1,6 @@
+.modalImage {
+  width: 1020px;
+  height: 800px;
+  border-radius: 10px;
+  object-fit: cover;
+}

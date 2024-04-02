@@ -57,7 +57,7 @@ function App() {
     setQuery(formData);
   };
 
-  const handleClick = () => {
+  const onHandleClick = () => {
     setPage(page + 1);
   };
 
@@ -72,12 +72,17 @@ function App() {
 
   return (
     <div className={css.container}>
-      <SearchBar onSubmit={onHandleSearch} />
+      <SearchBar onHandleSearch={onHandleSearch} />
       {swnLoader && <Loader />}
       {isError && <ErrorMessage />}
-      {images && <ImageGallery images={images} onClick={openModal} />}
-      {totalPages > page && <LoadMoreBtn onClick={handleClick} />}
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+      {images && <ImageGallery images={images} openModal={openModal} />}
+      {totalPages > page && <LoadMoreBtn onClick={onHandleClick} />}
+      <Modal
+        className={css.modal}
+        overlayClassName={css.overlay}
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+      >
         {modalImage && <ImageModal images={modalImage} />}
       </Modal>
       <Toaster />
